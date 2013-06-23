@@ -29,18 +29,34 @@
 
 - (void)configureView
 {
-    
-    NSLog(@"configureView");
-    NSLog(@"self.detailItem: %@", self.detailItem);
-    
     if (self.detailItem) {
-        NSLog(@"Found detailItem: %@", self.detailItem.envelopeId);
         self.title = [NSString stringWithFormat:@"%@ %@", self.detailItem.received, self.detailItem.type];
+        
         self.statusLabel.text = self.detailItem.status;
         self.mailboxIdLabel.text = self.detailItem.mailboxId;
-        self.envelopeIdLabel.text = self.detailItem.envelopeId;
         self.scanIdLabel.text = self.detailItem.scanId;
-        self.envelopeImage.image = [UIImage imageWithData:self.detailItem.envelope];
+    
+        UIImage *landscape = [UIImage imageWithData:self.detailItem.envelope];
+                
+        // Find out what percent we need to scale down the image
+        //  to fit the width correctly and allow scrolling for the
+        //  height. Note that the landscape height will be the portrait
+        //  width.
+        
+        float scale = landscape.size.height / self.view.bounds.size.width;
+        
+        UIImage *landscapeScaled = [[UIImage alloc] initWithCGImage: landscape.CGImage
+                                                       scale: scale
+                                                 orientation: UIImageOrientationRight];
+
+        
+        UIImageView *envelopeView = [[UIImageView alloc] initWithImage:landscapeScaled];
+        
+        [self.scrollView addSubview:envelopeView];
+        
+        self.scrollView.contentSize = envelopeView.frame.size;
+        self.scrollView.contentInset = UIEdgeInsetsMake(30, 0, 0, 0);
+        self.scrollView.contentOffset = CGPointMake(0, -30);
     }
 }
 

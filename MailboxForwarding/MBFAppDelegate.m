@@ -62,13 +62,10 @@
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         
         MBFStartupViewController *startupVC = [storyboard instantiateViewControllerWithIdentifier:@"MBFStartupViewController"];
-        
+                
         [startupVC setSession:self.session];
         
         [self.window.rootViewController presentViewController:startupVC animated:YES completion:NULL];
-        
-    } else {
-        NSLog(@"Found credentials in keychain: (%@ / %@)", email, password);
     }
     
 }

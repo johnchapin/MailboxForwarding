@@ -17,7 +17,7 @@
 
 - (KeychainItemWrapper *)keychain {
     if (! _keychain) {
-        _keychain = [[KeychainItemWrapper alloc] initWithIdentifier:@"MBFLoginInfo" accessGroup:nil];
+        _keychain = [[KeychainItemWrapper alloc] initWithIdentifier:@"MBFLogin" accessGroup:nil];
         [_keychain setObject:(__bridge id)(kSecAttrAccessibleWhenUnlocked) forKey:(__bridge id)(kSecAttrAccessible)];
     }
     return _keychain;
@@ -31,18 +31,37 @@
 
 - (void) setEmail:(NSString *) email {
     [[self keychain] setObject:email forKey:(__bridge id)(kSecAttrAccount)];
-    _email = email;
 }
 
 - (NSString *) password {
     if (! (_password && (_password.length > 0)))
         _password = [[self keychain] objectForKey:(__bridge id)(kSecValueData)];
+    NSLog(@"password: %@", _password);
+
     return _password;
 }
 
 - (void) setPassword:(NSString *)password {
     [[self keychain] setObject:password forKey:(__bridge id)(kSecValueData)];
-    _password = password;
+}
+
+- (void) login {
+    
+    if (([[self email] length] > 0) && ([[self password] length] > 0)) {
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://www.mailboxforwarding.com/manage/login.php"]];
+        [request setHTTPMethod:@"POST"];
+        NSString *requestBody = [NSString stringWithFormat:@"action=login&email=%@&password=%@", [self email], [self password]];
+        NSLog(@"requestBody: %@", requestBody);
+        [request setHTTPBody:[requestBody dataUsingEncoding:NSUTF8StringEncoding]];
+        [request setHTTPShouldHandleCookies:YES];
+        
+        [NSURLConnection sendAsynchronousRequest:request
+                                           queue:[NSOperationQueue mainQueue]
+                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+                                   NSLog(@"Successful login, I think...");
+                                   NSLog(@"response: %@", response);
+                               }];
+    }
 }
 
 @end

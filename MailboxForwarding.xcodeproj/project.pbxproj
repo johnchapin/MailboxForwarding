@@ -29,6 +29,7 @@
 		F6753656177454F100AFFE4C /* MBFSession.m in Sources */ = {isa = PBXBuildFile; fileRef = F6753655177454F100AFFE4C /* MBFSession.m */; };
 		F675365A1776780500AFFE4C /* index.txt in Resources */ = {isa = PBXBuildFile; fileRef = F67536591776780500AFFE4C /* index.txt */; };
 		F6A07EF31777300A00AEBFF4 /* MBFItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F6A07EF21777300A00AEBFF4 /* MBFItem.m */; };
+		F6A07EF61777631E00AEBFF4 /* MBFItemSkeleton.m in Sources */ = {isa = PBXBuildFile; fileRef = F6A07EF51777631E00AEBFF4 /* MBFItemSkeleton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,8 @@
 		F67536591776780500AFFE4C /* index.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = index.txt; path = MailboxForwarding/index.txt; sourceTree = "<group>"; };
 		F6A07EF11777300A00AEBFF4 /* MBFItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBFItem.h; sourceTree = "<group>"; };
 		F6A07EF21777300A00AEBFF4 /* MBFItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBFItem.m; sourceTree = "<group>"; };
+		F6A07EF41777631E00AEBFF4 /* MBFItemSkeleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBFItemSkeleton.h; sourceTree = "<group>"; };
+		F6A07EF51777631E00AEBFF4 /* MBFItemSkeleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBFItemSkeleton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +139,8 @@
 				F67535EB176E5FC600AFFE4C /* Supporting Files */,
 				F6A07EF11777300A00AEBFF4 /* MBFItem.h */,
 				F6A07EF21777300A00AEBFF4 /* MBFItem.m */,
+				F6A07EF41777631E00AEBFF4 /* MBFItemSkeleton.h */,
+				F6A07EF51777631E00AEBFF4 /* MBFItemSkeleton.m */,
 			);
 			path = MailboxForwarding;
 			sourceTree = "<group>";
@@ -233,6 +238,7 @@
 				F6753653176FEF6600AFFE4C /* MBFTableViewCell.m in Sources */,
 				F6753656177454F100AFFE4C /* MBFSession.m in Sources */,
 				F6A07EF31777300A00AEBFF4 /* MBFItem.m in Sources */,
+				F6A07EF61777631E00AEBFF4 /* MBFItemSkeleton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

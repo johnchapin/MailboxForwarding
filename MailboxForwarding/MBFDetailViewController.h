@@ -19,5 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *envelopeImage;
 @property (weak, nonatomic) IBOutlet UILabel *envelopeIdLabel;
 @property (weak, nonatomic) IBOutlet UILabel *scanIdLabel;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIView *infoView;
 
 @end

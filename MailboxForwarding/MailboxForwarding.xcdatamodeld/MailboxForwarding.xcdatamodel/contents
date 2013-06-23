@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12E55" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="MBFItem" representedClassName="Item">
+    <entity name="MBFItem" representedClassName="MBFItem">
         <attribute name="envelope" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="envelopeId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mailboxId" optional="YES" attributeType="String" syncable="YES"/>
