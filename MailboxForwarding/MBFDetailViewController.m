@@ -7,6 +7,7 @@
 //
 
 #import "MBFDetailViewController.h"
+#import "MBFItem.h"
 
 @interface MBFDetailViewController ()
 - (void)configureView;
@@ -16,7 +17,7 @@
 
 #pragma mark - Managing the detail item
 
-- (void)setDetailItem:(id)newDetailItem
+- (void)setDetailItem:(MBFItem *)newDetailItem
 {
     if (_detailItem != newDetailItem) {
         _detailItem = newDetailItem;
@@ -28,10 +29,18 @@
 
 - (void)configureView
 {
-    // Update the user interface for the detail item.
-
+    
+    NSLog(@"configureView");
+    NSLog(@"self.detailItem: %@", self.detailItem);
+    
     if (self.detailItem) {
-        self.detailDescriptionLabel.text = [[self.detailItem valueForKey:@"timeStamp"] description];
+        NSLog(@"Found detailItem: %@", self.detailItem.envelopeId);
+        self.title = [NSString stringWithFormat:@"%@ %@", self.detailItem.received, self.detailItem.type];
+        self.statusLabel.text = self.detailItem.status;
+        self.mailboxIdLabel.text = self.detailItem.mailboxId;
+        self.envelopeIdLabel.text = self.detailItem.envelopeId;
+        self.scanIdLabel.text = self.detailItem.scanId;
+        self.envelopeImage.image = [UIImage imageWithData:self.detailItem.envelope];
     }
 }
 

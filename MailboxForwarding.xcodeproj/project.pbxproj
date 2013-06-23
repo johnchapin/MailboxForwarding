@@ -21,6 +21,14 @@
 		F6753601176E5FC600AFFE4C /* MailboxForwarding.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F67535FF176E5FC600AFFE4C /* MailboxForwarding.xcdatamodeld */; };
 		F6753604176E5FC600AFFE4C /* MBFMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6753603176E5FC600AFFE4C /* MBFMasterViewController.m */; };
 		F6753607176E5FC600AFFE4C /* MBFDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6753606176E5FC600AFFE4C /* MBFDetailViewController.m */; };
+		F6753612176E6C9600AFFE4C /* MBFStartupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6753611176E6C9600AFFE4C /* MBFStartupViewController.m */; };
+		F6753614176E75F900AFFE4C /* MBFLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = F6753613176E75F900AFFE4C /* MBFLogo.png */; };
+		F6753616176E882A00AFFE4C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6753615176E882A00AFFE4C /* Security.framework */; };
+		F6753619176E8B8E00AFFE4C /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F6753618176E8B8E00AFFE4C /* KeychainItemWrapper.m */; };
+		F6753653176FEF6600AFFE4C /* MBFTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F6753652176FEF6600AFFE4C /* MBFTableViewCell.m */; };
+		F6753656177454F100AFFE4C /* MBFSession.m in Sources */ = {isa = PBXBuildFile; fileRef = F6753655177454F100AFFE4C /* MBFSession.m */; };
+		F675365A1776780500AFFE4C /* index.txt in Resources */ = {isa = PBXBuildFile; fileRef = F67536591776780500AFFE4C /* index.txt */; };
+		F6A07EF31777300A00AEBFF4 /* MBFItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F6A07EF21777300A00AEBFF4 /* MBFItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +52,19 @@
 		F6753603176E5FC600AFFE4C /* MBFMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBFMasterViewController.m; sourceTree = "<group>"; };
 		F6753605176E5FC600AFFE4C /* MBFDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBFDetailViewController.h; sourceTree = "<group>"; };
 		F6753606176E5FC600AFFE4C /* MBFDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBFDetailViewController.m; sourceTree = "<group>"; };
+		F6753610176E6C9600AFFE4C /* MBFStartupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBFStartupViewController.h; sourceTree = "<group>"; };
+		F6753611176E6C9600AFFE4C /* MBFStartupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBFStartupViewController.m; sourceTree = "<group>"; };
+		F6753613176E75F900AFFE4C /* MBFLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MBFLogo.png; sourceTree = "<group>"; };
+		F6753615176E882A00AFFE4C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		F6753617176E8B8E00AFFE4C /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeychainItemWrapper.h; path = ../KeychainItemWrapper.h; sourceTree = "<group>"; };
+		F6753618176E8B8E00AFFE4C /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeychainItemWrapper.m; path = ../KeychainItemWrapper.m; sourceTree = "<group>"; };
+		F6753651176FEF6600AFFE4C /* MBFTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBFTableViewCell.h; sourceTree = "<group>"; };
+		F6753652176FEF6600AFFE4C /* MBFTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBFTableViewCell.m; sourceTree = "<group>"; };
+		F6753654177454F000AFFE4C /* MBFSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBFSession.h; sourceTree = "<group>"; };
+		F6753655177454F100AFFE4C /* MBFSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBFSession.m; sourceTree = "<group>"; };
+		F67536591776780500AFFE4C /* index.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = index.txt; path = MailboxForwarding/index.txt; sourceTree = "<group>"; };
+		F6A07EF11777300A00AEBFF4 /* MBFItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBFItem.h; sourceTree = "<group>"; };
+		F6A07EF21777300A00AEBFF4 /* MBFItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBFItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6753616176E882A00AFFE4C /* Security.framework in Frameworks */,
 				F67535E3176E5FC600AFFE4C /* UIKit.framework in Frameworks */,
 				F67535E5176E5FC600AFFE4C /* Foundation.framework in Frameworks */,
 				F67535E7176E5FC600AFFE4C /* CoreGraphics.framework in Frameworks */,
@@ -64,6 +86,7 @@
 		F67535D6176E5FC600AFFE4C = {
 			isa = PBXGroup;
 			children = (
+				F67536591776780500AFFE4C /* index.txt */,
 				F67535EA176E5FC600AFFE4C /* MailboxForwarding */,
 				F67535E1176E5FC600AFFE4C /* Frameworks */,
 				F67535E0176E5FC600AFFE4C /* Products */,
@@ -81,6 +104,7 @@
 		F67535E1176E5FC600AFFE4C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F6753615176E882A00AFFE4C /* Security.framework */,
 				F67535E2176E5FC600AFFE4C /* UIKit.framework */,
 				F67535E4176E5FC600AFFE4C /* Foundation.framework */,
 				F67535E6176E5FC600AFFE4C /* CoreGraphics.framework */,
@@ -95,12 +119,23 @@
 				F67535F3176E5FC600AFFE4C /* MBFAppDelegate.h */,
 				F67535F4176E5FC600AFFE4C /* MBFAppDelegate.m */,
 				F67535FC176E5FC600AFFE4C /* MainStoryboard.storyboard */,
+				F6753651176FEF6600AFFE4C /* MBFTableViewCell.h */,
+				F6753652176FEF6600AFFE4C /* MBFTableViewCell.m */,
+				F6753613176E75F900AFFE4C /* MBFLogo.png */,
+				F6753610176E6C9600AFFE4C /* MBFStartupViewController.h */,
+				F6753611176E6C9600AFFE4C /* MBFStartupViewController.m */,
 				F6753602176E5FC600AFFE4C /* MBFMasterViewController.h */,
 				F6753603176E5FC600AFFE4C /* MBFMasterViewController.m */,
 				F6753605176E5FC600AFFE4C /* MBFDetailViewController.h */,
 				F6753606176E5FC600AFFE4C /* MBFDetailViewController.m */,
 				F67535FF176E5FC600AFFE4C /* MailboxForwarding.xcdatamodeld */,
+				F6753617176E8B8E00AFFE4C /* KeychainItemWrapper.h */,
+				F6753618176E8B8E00AFFE4C /* KeychainItemWrapper.m */,
+				F6753654177454F000AFFE4C /* MBFSession.h */,
+				F6753655177454F100AFFE4C /* MBFSession.m */,
 				F67535EB176E5FC600AFFE4C /* Supporting Files */,
+				F6A07EF11777300A00AEBFF4 /* MBFItem.h */,
+				F6A07EF21777300A00AEBFF4 /* MBFItem.m */,
 			);
 			path = MailboxForwarding;
 			sourceTree = "<group>";
@@ -176,6 +211,8 @@
 				F67535F9176E5FC600AFFE4C /* Default@2x.png in Resources */,
 				F67535FB176E5FC600AFFE4C /* Default-568h@2x.png in Resources */,
 				F67535FE176E5FC600AFFE4C /* MainStoryboard.storyboard in Resources */,
+				F6753614176E75F900AFFE4C /* MBFLogo.png in Resources */,
+				F675365A1776780500AFFE4C /* index.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,6 +228,11 @@
 				F6753601176E5FC600AFFE4C /* MailboxForwarding.xcdatamodeld in Sources */,
 				F6753604176E5FC600AFFE4C /* MBFMasterViewController.m in Sources */,
 				F6753607176E5FC600AFFE4C /* MBFDetailViewController.m in Sources */,
+				F6753612176E6C9600AFFE4C /* MBFStartupViewController.m in Sources */,
+				F6753619176E8B8E00AFFE4C /* KeychainItemWrapper.m in Sources */,
+				F6753653176FEF6600AFFE4C /* MBFTableViewCell.m in Sources */,
+				F6753656177454F100AFFE4C /* MBFSession.m in Sources */,
+				F6A07EF31777300A00AEBFF4 /* MBFItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +355,7 @@
 				F675360C176E5FC600AFFE4C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

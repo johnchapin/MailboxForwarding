@@ -7,10 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBFItem.h"
 
 @interface MBFDetailViewController : UIViewController
 
-@property (strong, nonatomic) id detailItem;
+@property (strong, nonatomic) MBFItem *detailItem;
+@property (weak, nonatomic) IBOutlet UILabel *receivedLabel;
+@property (weak, nonatomic) IBOutlet UILabel *typeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (weak, nonatomic) IBOutlet UILabel *mailboxIdLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *envelopeImage;
+@property (weak, nonatomic) IBOutlet UILabel *envelopeIdLabel;
+@property (weak, nonatomic) IBOutlet UILabel *scanIdLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 @end

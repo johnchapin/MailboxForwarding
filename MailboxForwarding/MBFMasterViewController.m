@@ -7,8 +7,9 @@
 //
 
 #import "MBFMasterViewController.h"
-
+#import "MBFTableViewCell.h"
 #import "MBFDetailViewController.h"
+#import "MBFItem.h"
 
 @interface MBFMasterViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -26,35 +27,97 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
+}
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
+- (void) handleRefresh:(id)sender
+{
+    NSString* path = [[NSBundle mainBundle] pathForResource:@"index"
+                                                     ofType:@"txt"];
+    NSString* content = [NSString stringWithContentsOfFile:path
+                                                  encoding:NSUTF8StringEncoding
+                                                     error:NULL];
+    NSLog(@"%@",path);
+    
+    NSError *error;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"Ext.grid.dummyData = (.*]]);" options:0 error:&error];
+    NSTextCheckingResult *result = [regex firstMatchInString:content options:0 range:NSMakeRange(0, [content length])];
+    
+    
+    NSString *jsonStr = [content substringWithRange:[result rangeAtIndex:1]];
+    NSString *cleanJsonStr = [jsonStr stringByReplacingOccurrencesOfString:@"['" withString:@"[\""];
+    cleanJsonStr = [cleanJsonStr stringByReplacingOccurrencesOfString:@"','" withString:@"\",\""];
+    cleanJsonStr = [cleanJsonStr stringByReplacingOccurrencesOfString:@"']" withString:@"\"]"];
+    cleanJsonStr = [cleanJsonStr stringByReplacingOccurrencesOfString:@"\\n" withString:@""];
+    
+    NSData *jsonData = [cleanJsonStr dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSArray *json = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
+    
+    // 23713,
+//    "<input type=\"checkbox\" name=\"mail[]\" value=\"10653953\" id=\"GnxlQtwGotL5cCzZ1lQkelcI2qPYi\">",
+//    "2013-06-17",
+//    "<img src=\"https://www.mailboxforwarding.com/files/tbm/GnxlQtwGotL5cCzZ1lQkelcI2qPYi.jpg\" height=\"70\" onClick=\"javascript:tbm(\\'GnxlQtwGotL5cCzZ1lQkelcI2qPYi\\');\">",
+//    Letter,
+//    Scanned,
+//    "<a href=\"pdfviewer.php?id=10653953\" target=\"_blank\"><b>View Scan</b></a>"
+    
+    NSArray *entry;
+    for(entry in [json subarrayWithRange:NSMakeRange(0, 5)])
+    {
+        [self insertNewItemFromJson:entry];
+    }
+    
+    [self.refreshControl endRefreshing];
+}
+
+- (void)insertNewItemFromJson:(NSArray *)jsonEntry
+{
+    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
+    
+    MBFItem *item = [[MBFItem alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
+    
+    item.mailboxId = [jsonEntry objectAtIndex:0];
+    item.received = [jsonEntry objectAtIndex:2];
+    item.type = [jsonEntry objectAtIndex:4];
+    item.status = [jsonEntry objectAtIndex:5];
+    
+    NSString *idsStr = [jsonEntry objectAtIndex:1];
+    NSError *regexError;
+    NSRegularExpression *idsRegex = [NSRegularExpression regularExpressionWithPattern:@"value=\"([0-9]+)\" id=\"([A-Za-z0-9]+)\"" options:0 error:&regexError];
+    NSTextCheckingResult *idsResult = [idsRegex firstMatchInString:idsStr options:0 range:NSMakeRange(0, [idsStr length])];
+    
+    item.scanId = [idsStr substringWithRange:[idsResult rangeAtIndex:1]];
+    item.envelopeId = [idsStr substringWithRange:[idsResult rangeAtIndex:2]];
+    
+    NSURLRequest *envelopeRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://www.mailboxforwarding.com/files/tbm/%@.jpg", item.envelopeId]]];
+    
+    [NSURLConnection sendAsynchronousRequest:envelopeRequest
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+                               item.envelope = data;
+                               NSError *saveError;
+                               if (![context save:&saveError]) {
+                                   NSLog(@"Unresolved error %@, %@", saveError, [saveError userInfo]);
+                                   abort();
+                               }
+                           }];
+    
+    NSError *saveError;
+    if (![context save:&saveError]) {
+        NSLog(@"Unresolved error %@, %@", saveError, [saveError userInfo]);
+        abort();
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)insertNewObject:(id)sender
-{
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-    
-    // If appropriate, configure the new managed object.
-    // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    [newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
-    
-    // Save the context.
-    NSError *error = nil;
-    if (![context save:&error]) {
-         // Replace this implementation with code to handle the error appropriately.
-         // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
 }
 
 #pragma mark - Table View
@@ -107,10 +170,12 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    NSLog(@"prepareForSegue");
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-        [[segue destinationViewController] setDetailItem:object];
+        MBFItem *item = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+        NSLog(@"item: %@", item);
+        [[segue destinationViewController] setDetailItem:item];
     }
 }
 
@@ -124,21 +189,21 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MBFItem" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
     // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"received" ascending:NO];
     NSArray *sortDescriptors = @[sortDescriptor];
     
     [fetchRequest setSortDescriptors:sortDescriptors];
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Inbox"];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
     
@@ -213,10 +278,24 @@
 }
  */
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)configureCell:(MBFTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
+    MBFItem *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.dateLabel.text = item.received;
+    cell.typeLabel.text = item.type;
+    cell.statusLabel.text = item.status;
+    cell.envelopeImage.image = [UIImage imageWithData:item.envelope];
 }
+
+//- (void)configureCell:(MBFTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+//{
+//    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+//    cell.dateLabel.text = [[object valueForKey:@"received"] description];
+//    cell.typeStatusLabel.text = [[NSString alloc] initWithFormat:@"%@, %@",
+//                                 [[object valueForKey:@"type"] description],
+//                                 [[object valueForKey:@"status"] description]];
+//    // cell.typeStatusLabel.text = @"Letter, Pending Scan";
+//    
+//}
 
 @end

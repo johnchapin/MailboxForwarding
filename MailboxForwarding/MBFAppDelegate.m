@@ -9,6 +9,9 @@
 #import "MBFAppDelegate.h"
 
 #import "MBFMasterViewController.h"
+#import "MBFStartupViewController.h"
+
+#import "MBFSession.h"
 
 @implementation MBFAppDelegate
 
@@ -22,6 +25,9 @@
     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
     MBFMasterViewController *controller = (MBFMasterViewController *)navigationController.topViewController;
     controller.managedObjectContext = self.managedObjectContext;
+    
+    self.session = [MBFSession alloc];
+    
     return YES;
 }
 							
@@ -44,7 +50,27 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user
+    
+    NSString *email = self.session.email;
+    NSString *password = self.session.password;
+    
+    // If not found, use the StartupViewController to get it
+    if ((email.length == 0) ||
+        (password.length == 0)) {
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        
+        MBFStartupViewController *startupVC = [storyboard instantiateViewControllerWithIdentifier:@"MBFStartupViewController"];
+        
+        [startupVC setSession:self.session];
+        
+        [self.window.rootViewController presentViewController:startupVC animated:YES completion:NULL];
+        
+    } else {
+        NSLog(@"Found credentials in keychain: (%@ / %@)", email, password);
+    }
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
