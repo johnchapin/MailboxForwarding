@@ -7,6 +7,7 @@
 //
 
 #import "MBFDetailViewController.h"
+#import "MBFActionsViewController.h"
 #import "MBFItem.h"
 
 @interface MBFDetailViewController ()
@@ -21,10 +22,48 @@
 {
     if (_detailItem != newDetailItem) {
         _detailItem = newDetailItem;
-        
-        // Update the view.
-        [self configureView];
     }
+}
+
+- (void)configureEnvelopeView
+{
+    
+//    NSString *content = [NSString stringWithFormat:@"<html><body><img src=\"%@\"/></body></html>", self.detailItem.envelope];
+//    NSLog(@"content: %@", content);
+//    NSURL *baseUrl = [[NSURL alloc] initWithString:@"foo"];
+//    [self.webView loadHTMLString:content baseURL:baseUrl];
+    
+    [self.webView loadData:[NSData dataWithContentsOfFile:self.detailItem.envelope] MIMEType:@"image/jpeg" textEncodingName:nil baseURL:nil];
+    
+//    [self.webView loadData:self.detailItem.envelope MIMEType:@"application/jpeg" textEncodingName:@"utf-8" baseURL:nil];
+    
+//    UIImage *landscape = [UIImage imageWithData:self.detailItem.envelope];
+//    
+//    // Find out what percent we need to scale down the image
+//    //  to fit the width correctly and allow scrolling for the
+//    //  height. Note that the landscape height will be the portrait
+//    //  width.
+//    
+//    float scale = landscape.size.height / self.view.bounds.size.width;
+//    
+//    UIImage *landscapeScaled = [[UIImage alloc] initWithCGImage: landscape.CGImage
+//                                                          scale: scale
+//                                                    orientation: UIImageOrientationRight];
+//    
+//    
+//    UIImageView *envelopeView = [[UIImageView alloc] initWithImage:landscapeScaled];
+//    
+//    [self.scrollView addSubview:envelopeView];
+//    
+//    self.scrollView.contentSize = envelopeView.frame.size;
+//    self.scrollView.contentInset = UIEdgeInsetsMake(30, 0, 0, 0);
+//    self.scrollView.contentOffset = CGPointMake(0, -30);
+}
+
+- (void)configureScanView
+{
+    NSData *scan = [NSData dataWithContentsOfFile:self.detailItem.scan];
+    [self.webView loadData:scan MIMEType:@"application/pdf" textEncodingName:@"utf-8" baseURL:nil];
 }
 
 - (void)configureView
@@ -33,38 +72,31 @@
         self.title = [NSString stringWithFormat:@"%@ %@", self.detailItem.received, self.detailItem.type];
         
         self.statusLabel.text = self.detailItem.status;
-        self.mailboxIdLabel.text = self.detailItem.mailboxId;
-        self.scanIdLabel.text = self.detailItem.scanId;
-    
-        UIImage *landscape = [UIImage imageWithData:self.detailItem.envelope];
-                
-        // Find out what percent we need to scale down the image
-        //  to fit the width correctly and allow scrolling for the
-        //  height. Note that the landscape height will be the portrait
-        //  width.
         
-        float scale = landscape.size.height / self.view.bounds.size.width;
-        
-        UIImage *landscapeScaled = [[UIImage alloc] initWithCGImage: landscape.CGImage
-                                                       scale: scale
-                                                 orientation: UIImageOrientationRight];
-
-        
-        UIImageView *envelopeView = [[UIImageView alloc] initWithImage:landscapeScaled];
-        
-        [self.scrollView addSubview:envelopeView];
-        
-        self.scrollView.contentSize = envelopeView.frame.size;
-        self.scrollView.contentInset = UIEdgeInsetsMake(30, 0, 0, 0);
-        self.scrollView.contentOffset = CGPointMake(0, -30);
+        if (self.detailItem.scan) {
+            [self configureScanView];
+        } else {
+            [self configureEnvelopeView];
+        }
     }
 }
 
 - (void)viewDidLoad
-{
+{    
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
+    [self.manager addScanToItem:self.detailItem completionHandler:^{
+        [self configureView];
+    }];
+    
     [self configureView];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"showActions"]) {        
+        [segue.destinationViewController setActionItem:self.detailItem];
+        [segue.destinationViewController setManager:self.manager];
+    }
 }
 
 - (void)didReceiveMemoryWarning

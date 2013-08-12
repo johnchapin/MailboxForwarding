@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F67535DE176E5FC600AFFE4C"
-               BuildableName = "MailboxForwarding.app"
-               BlueprintName = "MailboxForwarding"
-               ReferencedContainer = "container:MailboxForwarding.xcodeproj">
+               BlueprintIdentifier = "9CDAB90ED01A42E8B847044F"
+               BuildableName = "libPods-hpple.a"
+               BlueprintName = "Pods-hpple"
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,15 +29,6 @@
       buildConfiguration = "Debug">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F67535DE176E5FC600AFFE4C"
-            BuildableName = "MailboxForwarding.app"
-            BlueprintName = "MailboxForwarding"
-            ReferencedContainer = "container:MailboxForwarding.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -48,15 +39,6 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F67535DE176E5FC600AFFE4C"
-            BuildableName = "MailboxForwarding.app"
-            BlueprintName = "MailboxForwarding"
-            ReferencedContainer = "container:MailboxForwarding.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -66,15 +48,6 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F67535DE176E5FC600AFFE4C"
-            BuildableName = "MailboxForwarding.app"
-            BlueprintName = "MailboxForwarding"
-            ReferencedContainer = "container:MailboxForwarding.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

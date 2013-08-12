@@ -7,11 +7,8 @@
 //
 
 #import "MBFAppDelegate.h"
-
 #import "MBFMasterViewController.h"
 #import "MBFStartupViewController.h"
-
-#import "MBFSession.h"
 
 @implementation MBFAppDelegate
 
@@ -23,10 +20,13 @@
 {
     // Override point for customization after application launch.
     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+    
+    self.manager = [[MBFItemManager alloc] init];
+    self.manager.managedObjectContext = self.managedObjectContext;
+    
     MBFMasterViewController *controller = (MBFMasterViewController *)navigationController.topViewController;
     controller.managedObjectContext = self.managedObjectContext;
-    
-    self.session = [MBFSession alloc];
+    controller.manager = self.manager;
     
     return YES;
 }
@@ -51,23 +51,12 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user
-    
-    NSString *email = self.session.email;
-    NSString *password = self.session.password;
-    
-    // If not found, use the StartupViewController to get it
-    if ((email.length == 0) ||
-        (password.length == 0)) {
-        
+    if (self.manager.session.email.length == 0 || self.manager.session.password.length == 0) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        
         MBFStartupViewController *startupVC = [storyboard instantiateViewControllerWithIdentifier:@"MBFStartupViewController"];
-                
-        [startupVC setSession:self.session];
-        
+        startupVC.manager = self.manager;
         [self.window.rootViewController presentViewController:startupVC animated:YES completion:NULL];
     }
-    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

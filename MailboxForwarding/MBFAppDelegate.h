@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MBFSession.h"
+#import "MBFItemManager.h"
 
 @interface MBFAppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -16,7 +17,9 @@
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
 @property MBFSession *session;
+@property MBFItemManager *manager;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

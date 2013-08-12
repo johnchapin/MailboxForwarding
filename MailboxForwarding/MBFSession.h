@@ -8,11 +8,18 @@
 
 #import <Foundation/Foundation.h>
 #import "KeychainItemWrapper.h"
+#import "MBFItem.h"
 
-@interface MBFSession : NSObject 
+@interface MBFSession : NSObject
 
 @property (nonatomic, retain) KeychainItemWrapper *keychain;
 @property (nonatomic, retain) NSString *email;
 @property (nonatomic, retain) NSString *password;
+
+- (void)loginRequest:(void (^)())completionHandler;
+- (void)indexRefresh:(void (^)(NSData *data))completionHandler;
+- (void)downloadResource:(NSString *) url completionHandler:(void (^)(NSString *filename))completionHandler;
+
+- (void)statusChangeRequest:(NSString *)mailId newStatus:(NSString *)newStatus completionHandler:(void (^)())completionHandler;
 
 @end

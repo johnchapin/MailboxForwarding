@@ -17,164 +17,56 @@
 
 @implementation MBFMasterViewController
 
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
     [super awakeFromNib];
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     // self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
-    
-    NSLog(@"MasterViewController/viewDidLoad");
 }
 
-- (void) handleRefresh:(id)sender
-{
-    NSString* path = [[NSBundle mainBundle] pathForResource:@"index"
-                                                     ofType:@"txt"];
-    NSString* content = [NSString stringWithContentsOfFile:path
-                                                  encoding:NSUTF8StringEncoding
-                                                     error:NULL];
-    NSLog(@"%@",path);
-    
-    NSError *error;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"Ext.grid.dummyData = (.*]]);" options:0 error:&error];
-    NSTextCheckingResult *result = [regex firstMatchInString:content options:0 range:NSMakeRange(0, [content length])];
-    
-    
-    NSString *jsonStr = [content substringWithRange:[result rangeAtIndex:1]];
-    NSString *cleanJsonStr = [jsonStr stringByReplacingOccurrencesOfString:@"['" withString:@"[\""];
-    cleanJsonStr = [cleanJsonStr stringByReplacingOccurrencesOfString:@"','" withString:@"\",\""];
-    cleanJsonStr = [cleanJsonStr stringByReplacingOccurrencesOfString:@"']" withString:@"\"]"];
-    cleanJsonStr = [cleanJsonStr stringByReplacingOccurrencesOfString:@"\\n" withString:@""];
-    
-    NSData *jsonData = [cleanJsonStr dataUsingEncoding:NSUTF8StringEncoding];
-    
-    NSArray *json = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
-    
-    // 23713,
-//    "<input type=\"checkbox\" name=\"mail[]\" value=\"10653953\" id=\"GnxlQtwGotL5cCzZ1lQkelcI2qPYi\">",
-//    "2013-06-17",
-//    "<img src=\"https://www.mailboxforwarding.com/files/tbm/GnxlQtwGotL5cCzZ1lQkelcI2qPYi.jpg\" height=\"70\" onClick=\"javascript:tbm(\\'GnxlQtwGotL5cCzZ1lQkelcI2qPYi\\');\">",
-//    Letter,
-//    Scanned,
-//    "<a href=\"pdfviewer.php?id=10653953\" target=\"_blank\"><b>View Scan</b></a>"
-    
-    NSArray *entry;
-    for(entry in json)
-    {
-        [self addOrUpdateItem:entry];
-    }
-    
-    [self.refreshControl endRefreshing];
+- (void) handleRefresh:(id)sender {
+    [self.manager refresh:^(){[self.refreshControl endRefreshing];}];
 }
 
-- (void)saveContext
-{
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    NSError *error;
-    if (![context save:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        // TODO: Remove abort from shipping app
-        abort();
-    }
-}
-
-- (void) addOrUpdateItem:(NSArray *)jsonArray
-{
-    MBFItemSkeleton *itemSkeleton = [[MBFItemSkeleton alloc] initWithJsonArray:jsonArray];
-    
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MBFItem" inManagedObjectContext:self.managedObjectContext];
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    fetchRequest.entity = entity;
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @"envelopeId", itemSkeleton.envelopeId];
-    
-    fetchRequest.predicate = predicate;
-    fetchRequest.fetchLimit = 1;
-    
-    NSError *fetchError;
-    NSArray *items = [context executeFetchRequest:fetchRequest error:&fetchError];
-    
-    MBFItem *item;
-    if (items.count == 0)
-        item = [[MBFItem alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
-    else
-        item = [items objectAtIndex:0];
-    
-    item.scanId = itemSkeleton.scanId;
-    item.envelopeId = itemSkeleton.envelopeId;
-    item.mailboxId = [itemSkeleton.jsonArray objectAtIndex:0];
-    item.received = [itemSkeleton.jsonArray objectAtIndex:2];
-    item.type = [itemSkeleton.jsonArray objectAtIndex:4];
-    item.status = [itemSkeleton.jsonArray objectAtIndex:5];
-    
-    if (item.envelope == nil)
-    {
-        NSLog(@"Downloading envelope image for %@:", item.envelopeId);
-        NSURLRequest *envelopeRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://www.mailboxforwarding.com/files/tbm/%@.jpg", item.envelopeId]]];
-        [NSURLConnection sendAsynchronousRequest:envelopeRequest
-                                           queue:[NSOperationQueue mainQueue]
-                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
-                                   // TODO: Handle download errors
-                                   NSLog(@"Envelope image download complete for: %@", item.envelopeId);
-                                   item.envelope = data;
-                                   [self saveContext];
-                               }];
-    }
-    
-    [self saveContext];
-}
-
-
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table View
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return [[self.fetchedResultsController sections] count];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
     return [sectionInfo numberOfObjects];
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     // Display the authors' names as section headings.
     return [[[self.fetchedResultsController sections] objectAtIndex:section] name];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
         [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
@@ -189,25 +81,23 @@
     }
 }
 
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     // The table view should not be re-orderable.
     return NO;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        MBFItem *item = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-        [[segue destinationViewController] setDetailItem:item];
+        MBFItem *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        [segue.destinationViewController setDetailItem:item];
+        [segue.destinationViewController setManager:self.manager];
     }
 }
 
 #pragma mark - Fetched results controller
 
-- (NSFetchedResultsController *)fetchedResultsController
-{
+- (NSFetchedResultsController *)fetchedResultsController {
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
@@ -243,14 +133,12 @@
     return _fetchedResultsController;
 }    
 
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
-{
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView beginUpdates];
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
-           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
-{
+           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
     switch(type) {
         case NSFetchedResultsChangeInsert:
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
@@ -264,8 +152,7 @@
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
        atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(NSIndexPath *)newIndexPath
-{
+      newIndexPath:(NSIndexPath *)newIndexPath {
     UITableView *tableView = self.tableView;
     
     switch(type) {
@@ -288,8 +175,7 @@
     }
 }
 
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView endUpdates];
 }
 
@@ -303,11 +189,10 @@
 }
  */
 
-- (void)configureCell:(MBFTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
+- (void)configureCell:(MBFTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     MBFItem *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.typeStatusLabel.text = [NSString stringWithFormat:@"%@ %@", item.type, item.status];
-    cell.envelopeImage.image = [UIImage imageWithData:item.envelope];
+    cell.envelopeImage.image = [UIImage imageWithContentsOfFile:item.envelope];
 }
 
 @end

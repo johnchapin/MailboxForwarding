@@ -16,6 +16,7 @@
 @dynamic received;
 @dynamic status;
 @dynamic type;
+@dynamic mailId;
 @dynamic mailboxId;
 @dynamic scan;
 @dynamic scanId;

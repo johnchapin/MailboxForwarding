@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface MBFTableViewCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UILabel *typeStatusLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *envelopeImage;
 

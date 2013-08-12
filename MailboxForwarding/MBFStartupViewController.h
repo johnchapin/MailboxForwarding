@@ -7,15 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MBFSession.h"
+#import "MBFItemManager.h"
 
 @interface MBFStartupViewController : UIViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *emailAddressTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
-@property BOOL readyToRun;
-@property MBFSession *session;
+@property MBFItemManager *manager;
 
 - (IBAction)login:(id)sender;
 
