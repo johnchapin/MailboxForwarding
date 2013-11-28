@@ -20,6 +20,8 @@
 - (void)indexRefresh:(void (^)(NSData *data))completionHandler;
 - (void)downloadResource:(NSString *) url completionHandler:(void (^)(NSString *filename))completionHandler;
 
-- (void)statusChangeRequest:(NSString *)mailId newStatus:(NSString *)newStatus completionHandler:(void (^)())completionHandler;
+//- (void)statusChangeRequest:(NSString *)mailId newStatus:(NSString *)newStatus completionHandler:(void (^)())completionHandler;
+
+- (void)statusChangeRequest:(NSDictionary *)options completionHandler:(void (^)())completionHandler;
 
 @end

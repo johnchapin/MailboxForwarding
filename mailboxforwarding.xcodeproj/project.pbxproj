@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		907800B0DE334D5CA9FDB9CF /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E63947339EF4E47A142D48A /* libPods.a */; };
 		F6343F0717C0039000E4BF86 /* MBFLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = F6343F0617C0039000E4BF86 /* MBFLogo.png */; };
 		F6343F0917C0183C00E4BF86 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F6343F0817C0183C00E4BF86 /* Settings.bundle */; };
 		F6343F0C17C2DD3400E4BF86 /* MBFItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F6343F0B17C2DD3400E4BF86 /* MBFItemManager.m */; };
 		F6343F0F17C3EA2200E4BF86 /* MBFActionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6343F0E17C3EA2200E4BF86 /* MBFActionsViewController.m */; };
+		F66B596B17F1B895002D6234 /* MBFShredViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F66B596A17F1B895002D6234 /* MBFShredViewController.m */; };
 		F67535E3176E5FC600AFFE4C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F67535E2176E5FC600AFFE4C /* UIKit.framework */; };
 		F67535E5176E5FC600AFFE4C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F67535E4176E5FC600AFFE4C /* Foundation.framework */; };
 		F67535E7176E5FC600AFFE4C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F67535E6176E5FC600AFFE4C /* CoreGraphics.framework */; };
@@ -34,19 +34,18 @@
 		F6753656177454F100AFFE4C /* MBFSession.m in Sources */ = {isa = PBXBuildFile; fileRef = F6753655177454F100AFFE4C /* MBFSession.m */; };
 		F6A07EF31777300A00AEBFF4 /* MBFItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F6A07EF21777300A00AEBFF4 /* MBFItem.m */; };
 		F6A07EF61777631E00AEBFF4 /* MBFItemSkeleton.m in Sources */ = {isa = PBXBuildFile; fileRef = F6A07EF51777631E00AEBFF4 /* MBFItemSkeleton.m */; };
-		F6F861D417B4FAEE00E1E740 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = F6F861D317B4FAEE00E1E740 /* Podfile */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0728617BE7B84614B214876A /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
-		7E63947339EF4E47A142D48A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6343F0617C0039000E4BF86 /* MBFLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MBFLogo.png; path = ../MBFLogo.png; sourceTree = "<group>"; };
 		F6343F0817C0183C00E4BF86 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = mailboxforwarding/Settings.bundle; sourceTree = SOURCE_ROOT; };
 		F6343F0A17C2DD3400E4BF86 /* MBFItemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFItemManager.h; path = mailboxforwarding/MBFItemManager.h; sourceTree = SOURCE_ROOT; };
 		F6343F0B17C2DD3400E4BF86 /* MBFItemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFItemManager.m; path = mailboxforwarding/MBFItemManager.m; sourceTree = SOURCE_ROOT; };
 		F6343F0D17C3EA2200E4BF86 /* MBFActionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFActionsViewController.h; path = ../mailboxforwarding/MBFActionsViewController.h; sourceTree = "<group>"; };
 		F6343F0E17C3EA2200E4BF86 /* MBFActionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFActionsViewController.m; path = mailboxforwarding/MBFActionsViewController.m; sourceTree = SOURCE_ROOT; };
-		F67535DF176E5FC600AFFE4C /* mailboxforwarding.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mailboxforwarding.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F66B596917F1B895002D6234 /* MBFShredViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFShredViewController.h; path = mailboxforwarding/MBFShredViewController.h; sourceTree = SOURCE_ROOT; };
+		F66B596A17F1B895002D6234 /* MBFShredViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFShredViewController.m; path = mailboxforwarding/MBFShredViewController.m; sourceTree = SOURCE_ROOT; };
+		F67535DF176E5FC600AFFE4C /* mailboxforwarding.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = mailboxforwarding.app; path = "/Users/jchapin/dev/MailboxForwarding/build/Debug-iphoneos/mailboxforwarding.app"; sourceTree = "<absolute>"; };
 		F67535E2176E5FC600AFFE4C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F67535E4176E5FC600AFFE4C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F67535E6176E5FC600AFFE4C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -80,7 +79,6 @@
 		F6A07EF21777300A00AEBFF4 /* MBFItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBFItem.m; sourceTree = "<group>"; };
 		F6A07EF41777631E00AEBFF4 /* MBFItemSkeleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBFItemSkeleton.h; sourceTree = "<group>"; };
 		F6A07EF51777631E00AEBFF4 /* MBFItemSkeleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBFItemSkeleton.m; sourceTree = "<group>"; };
-		F6F861D317B4FAEE00E1E740 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +91,6 @@
 				F67535E5176E5FC600AFFE4C /* Foundation.framework in Frameworks */,
 				F67535E7176E5FC600AFFE4C /* CoreGraphics.framework in Frameworks */,
 				F67535E9176E5FC600AFFE4C /* CoreData.framework in Frameworks */,
-				907800B0DE334D5CA9FDB9CF /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,20 +100,9 @@
 		F67535D6176E5FC600AFFE4C = {
 			isa = PBXGroup;
 			children = (
-				F6F861D317B4FAEE00E1E740 /* Podfile */,
 				F67535EA176E5FC600AFFE4C /* MailboxForwarding */,
 				F67535E1176E5FC600AFFE4C /* Frameworks */,
-				F67535E0176E5FC600AFFE4C /* Products */,
-				0728617BE7B84614B214876A /* Pods.xcconfig */,
 			);
-			sourceTree = "<group>";
-		};
-		F67535E0176E5FC600AFFE4C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F67535DF176E5FC600AFFE4C /* mailboxforwarding.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		F67535E1176E5FC600AFFE4C /* Frameworks */ = {
@@ -127,7 +113,6 @@
 				F67535E4176E5FC600AFFE4C /* Foundation.framework */,
 				F67535E6176E5FC600AFFE4C /* CoreGraphics.framework */,
 				F67535E8176E5FC600AFFE4C /* CoreData.framework */,
-				7E63947339EF4E47A142D48A /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -157,6 +142,8 @@
 				F6753655177454F100AFFE4C /* MBFSession.m */,
 				F6343F0A17C2DD3400E4BF86 /* MBFItemManager.h */,
 				F6343F0B17C2DD3400E4BF86 /* MBFItemManager.m */,
+				F66B596917F1B895002D6234 /* MBFShredViewController.h */,
+				F66B596A17F1B895002D6234 /* MBFShredViewController.m */,
 				F67535EB176E5FC600AFFE4C /* Supporting Files */,
 				F6A07EF11777300A00AEBFF4 /* MBFItem.h */,
 				F6A07EF21777300A00AEBFF4 /* MBFItem.m */,
@@ -188,11 +175,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F675360A176E5FC600AFFE4C /* Build configuration list for PBXNativeTarget "mailboxforwarding" */;
 			buildPhases = (
-				B946FEFEE3C84622BF20751D /* Check Pods Manifest.lock */,
 				F67535DB176E5FC600AFFE4C /* Sources */,
 				F67535DC176E5FC600AFFE4C /* Frameworks */,
 				F67535DD176E5FC600AFFE4C /* Resources */,
-				7CCF5B4D02C344DCBBBB0166 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -221,7 +206,7 @@
 				en,
 			);
 			mainGroup = F67535D6176E5FC600AFFE4C;
-			productRefGroup = F67535E0176E5FC600AFFE4C /* Products */;
+			productRefGroup = F67535D6176E5FC600AFFE4C;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -241,46 +226,12 @@
 				F67535FB176E5FC600AFFE4C /* Default-568h@2x.png in Resources */,
 				F67535FE176E5FC600AFFE4C /* MainStoryboard.storyboard in Resources */,
 				F6753614176E75F900AFFE4C /* MBFTitle.png in Resources */,
-				F6F861D417B4FAEE00E1E740 /* Podfile in Resources */,
 				F6343F0717C0039000E4BF86 /* MBFLogo.png in Resources */,
 				F6343F0917C0183C00E4BF86 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		7CCF5B4D02C344DCBBBB0166 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B946FEFEE3C84622BF20751D /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F67535DB176E5FC600AFFE4C /* Sources */ = {
@@ -300,6 +251,7 @@
 				F6A07EF61777631E00AEBFF4 /* MBFItemSkeleton.m in Sources */,
 				F6343F0C17C2DD3400E4BF86 /* MBFItemManager.m in Sources */,
 				F6343F0F17C3EA2200E4BF86 /* MBFActionsViewController.m in Sources */,
+				F66B596B17F1B895002D6234 /* MBFShredViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,7 +303,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = "${SDKROOT}/usr/include/libxml2";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -376,7 +328,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = "${SDKROOT}/usr/include/libxml2";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -385,7 +337,6 @@
 		};
 		F675360B176E5FC600AFFE4C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0728617BE7B84614B214876A /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -398,7 +349,6 @@
 		};
 		F675360C176E5FC600AFFE4C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0728617BE7B84614B214876A /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

@@ -15,18 +15,13 @@
 
 @implementation MBFActionsViewController
 
-// action=changeStatus&mail[]=%@&statusAction=%@
-
-- (void)foo {
-    
+- (IBAction)scan:(id)sender {
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
                              @"action", @"changeStatus",
                              @"mail[]", self.actionItem.mailId,
                              @"statusAction", @"scan", nil];
-}
-
-- (IBAction)scan:(id)sender {
-    [self.manager.session statusChangeRequest:self.actionItem.mailId newStatus:@"scan" completionHandler:^{
+    
+    [self.manager.session statusChangeRequest:options completionHandler:^{
         [self.manager refresh:NULL];
     }];
 }
@@ -37,7 +32,14 @@
 }
 
 - (IBAction)shred:(id)sender {
-    [self.manager.session statusChangeRequest:self.actionItem.mailId newStatus:@"shreda" completionHandler:NULL];
+//    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+//                             @"action", @"changeStatus",
+//                             @"mail[]", self.actionItem.mailId,
+//                             @"statusAction", @"shreda", nil];
+//    
+//    [self.manager.session statusChangeRequest:options completionHandler:^{
+//        [self.manager refresh:NULL];
+//    }];
 }
 
 //action:changeStatus

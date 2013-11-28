@@ -127,55 +127,63 @@ static NSString *INDEX_URL = @"https://www.mailboxforwarding.com/manage/index.ph
 
 - (void)statusChangeRequest:(NSDictionary *)options completionHandler:(void (^)())completionHandler {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:INDEX_URL]];
-    
     NSMutableString *body = [NSMutableString stringWithString:@"action=changeStatus"];
     
     [options enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         [body appendFormat:@"&%@=%@", key, obj];
-        //
     }];
-//    NSString *body = [NSString stringWithFormat:(NSString *), ...]
-}
-
-- (void)statusChangeRequest:(NSString *)mailId newStatus:(NSString *)newStatus completionHandler:(void (^)())completionHandler {
-    NSLog(@"statusChangeRequest/mailId: %@", mailId);
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:INDEX_URL]];
-        
-    NSString *body = [NSString stringWithFormat:@"action=changeStatus&mail[]=%@&statusAction=%@", mailId, newStatus];
-    
-    NSLog(@"statusChangeRequest/body: %@", body);
-
-    NSData *bodyData = [body dataUsingEncoding:NSUTF8StringEncoding];
-    
-    NSLog(@"statusChangeRequest/bodyData: %@", bodyData);
-    
-    
-    
-    request.HTTPBody = bodyData;
-    
+    request.HTTPBody = [body dataUsingEncoding:NSUTF8StringEncoding];
     request.HTTPMethod = @"POST";
-    
     
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
-                               int statusCode = [(NSHTTPURLResponse *)response statusCode];
-                               
-                               NSLog(@"statusChangeRequest/error: %@", error);
-                               NSLog(@"statusChangeRequest/statusCode: %d", statusCode);
-                               
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                               // int statusCode = [(NSHTTPURLResponse *)response statusCode];
                                if (completionHandler)
                                    completionHandler();
                            }];
 }
 
-- (void)shredRequest:(NSString *)mailId completionHandler:(void (^)())completionHandler {
-    [self statusChangeRequest:mailId newStatus:@"shreda" completionHandler:completionHandler];
-}
+//- (void)statusChangeRequest:(NSString *)mailId newStatus:(NSString *)newStatus completionHandler:(void (^)())completionHandler {
+//    NSLog(@"statusChangeRequest/mailId: %@", mailId);
+//    
+//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:INDEX_URL]];
+//        
+//    NSString *body = [NSString stringWithFormat:@"action=changeStatus&mail[]=%@&statusAction=%@", mailId, newStatus];
+//    
+//    NSLog(@"statusChangeRequest/body: %@", body);
+//
+//    NSData *bodyData = [body dataUsingEncoding:NSUTF8StringEncoding];
+//    
+//    NSLog(@"statusChangeRequest/bodyData: %@", bodyData);
+//    
+//    
+//    
+//    request.HTTPBody = bodyData;
+//    
+//    request.HTTPMethod = @"POST";
+//    
+//    
+//    [NSURLConnection sendAsynchronousRequest:request
+//                                       queue:[NSOperationQueue mainQueue]
+//                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+//                               int statusCode = [(NSHTTPURLResponse *)response statusCode];
+//                               
+//                               NSLog(@"statusChangeRequest/error: %@", error);
+//                               NSLog(@"statusChangeRequest/statusCode: %d", statusCode);
+//                               
+//                               if (completionHandler)
+//                                   completionHandler();
+//                           }];
+//}
 
-- (void)scanRequest:(NSString *)mailId completionHandler:(void (^)())completionHandler {
-    [self statusChangeRequest:mailId newStatus:@"scan" completionHandler:completionHandler];
-}
+//- (void)shredRequest:(NSString *)mailId completionHandler:(void (^)())completionHandler {
+//    [self statusChangeRequest:mailId newStatus:@"shreda" completionHandler:completionHandler];
+//}
+//
+//- (void)scanRequest:(NSString *)mailId completionHandler:(void (^)())completionHandler {
+//    [self statusChangeRequest:mailId newStatus:@"scan" completionHandler:completionHandler];
+//}
 
 @end
